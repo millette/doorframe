@@ -18,13 +18,27 @@
 
 </head>
 <body>
-<form id="login">
-<input type="text" name="name" placeholder="username">
-</form>
-
+<% if (data.user && data.user.name) { %>
+  <p>Rebonjour, <%= data.user.name %>.</p>
+  <form id="login">
+  <input type="hidden" name="logout" value="logout">
+  <input type="submit" value="logout">
+  </form>
+<% } else { %>
+  <form id="login">
+  <input type="text" name="name" placeholder="username">
+  </form>
+<% } %>
 <p>When $$a \ne 0,$$ there are two solutions to \(ax^2 + bx + c = 0\) and they are
 $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
 
+<p>Voilà.</p>
+<pre>
+<%= JSON.stringify(data, null, ' ') %>
+</pre>
+<pre>
+<%= JSON.stringify(data.user, null, ' ') %>
+</pre>
 <script type="text/javascript" src="js/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 </body>

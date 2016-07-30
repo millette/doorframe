@@ -1,3 +1,5 @@
 *.doc/_attachments/components
 old-mathjax
 node_modules
+cdb.doc/views/lib/templates.js
+
