@@ -1,0 +1,30 @@
+[
+  {
+    "from": "indx",
+    "to": "index.html"
+  },
+  {
+    "from": "js/MathJax/*",
+    "to": "../app/components/MathJax/*"
+  },
+  {
+    "from": "js/jquery/*",
+    "to": "../js/components/jquery/*"
+  },
+  {
+    "from": "js/*",
+    "to": "js/*"
+  },
+  {
+    "from": "login/*",
+    "to": "../../../_users/*"
+  },
+  {
+    "from": "session",
+    "to": "../../../_session"
+  },
+  {
+    "from": "",
+    "to": "_show/accueil"
+  }
+]

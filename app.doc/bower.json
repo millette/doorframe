@@ -1,0 +1,21 @@
+{
+  "name": "zi",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Robin Millette <robin@millette.info>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "MathJax": "^2.6.1"
+  }
+}

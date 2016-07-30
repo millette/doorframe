@@ -1,0 +1,3 @@
+*.doc/_attachments/components
+old-mathjax
+node_modules
