@@ -1,0 +1,7 @@
+body {
+  background: #f4f4ff;
+}
+
+body > div.row.column {
+  background: #f4f4f4;
+}

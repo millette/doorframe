@@ -12,12 +12,20 @@
     "to": "../js/components/foundation-sites/*"
   },
   {
+    "from": "css/foundation-sites/*",
+    "to": "../js/components/foundation-sites/*"
+  },
+  {
     "from": "js/what-input/*",
     "to": "../js/components/what-input/*"
   },
   {
     "from": "js/*",
     "to": "js/*"
+  },
+  {
+    "from": "css/*",
+    "to": "css/*"
   },
   {
     "from": "login/*",
