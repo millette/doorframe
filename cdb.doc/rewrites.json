@@ -28,6 +28,10 @@
     "to": "_show/accueil"
   },
   {
+    "from": "doc/:id",
+    "to": "_show/doc/:id"
+  },
+  {
     "from": "prof",
     "to": "_show/prof"
   }
