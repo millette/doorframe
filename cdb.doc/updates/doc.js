@@ -17,5 +17,5 @@ function (doc, req) {
       doc.editors = [doc.prof]
     }
   }
-  return [doc, 'thanks']
+  return [doc, { code: 303, headers: { location: '/doc/' + doc._id } }]
 }
