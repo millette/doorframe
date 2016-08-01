@@ -46,5 +46,13 @@
   {
     "from": "prof",
     "to": "_show/prof"
+  },
+  {
+    "from": "prof/:prof/questions",
+    "to": "_list/profdocs/profdocs",
+    "query": {
+      "startkey": [":prof"],
+      "endkey": [":prof", "\ufff0"]
+    }
   }
 ]
