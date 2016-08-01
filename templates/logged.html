@@ -1,0 +1,11 @@
+<% if (data.user && data.user.name) { %>
+  <p>Rebonjour, <%= data.user.name %>.</p>
+  <form id="login">
+  <input type="hidden" name="logout" value="logout">
+  <input type="submit" value="logout">
+  </form>
+<% } else { %>
+  <form id="login">
+  <input type="text" name="name" placeholder="username">
+  </form>
+<% } %>
