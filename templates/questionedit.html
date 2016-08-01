@@ -1,0 +1,20 @@
+<h3>Éditer <%- data.doc._id %>
+<% if (data.doc.updated_at) { %>
+  <small><%= data.doc.updated_at %></small>
+<% } %>
+</h3>
+<% if (data.doc.editors && data.doc.editors.length) { %>
+<ul>
+  <% data.doc.editors.forEach(function (editor) { %>
+    <li><%= editor %></li>
+  <% }) %>
+</ul>
+<% } %>
+<form method="post" action="/update<%= data.doc._id ? ('/' + data.doc._id) : '' %>">
+<% if (!data.doc._id) { %>
+id: <input type="text" name="id"><br>
+<% } %>
+question:<br>
+<textarea cols="80" rows="10" name="question"><%= data.doc.question %></textarea><br>
+<input type="submit" value="edit">
+</form>

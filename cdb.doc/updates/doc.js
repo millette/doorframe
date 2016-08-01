@@ -1,10 +1,13 @@
 function (doc, req) {
-  if (doc.created_at) {
-    doc.updated_at = new Date().toISOString()
-  } else {
-    doc.created_at = new Date().toISOString()
-    doc.updated_at = doc.created_at
+  if (!doc) {
+    doc = {
+      _id: req.form.id.trim(),
+      created_at: new Date().toISOString()
+    }
   }
+
+  doc.question = req.form.question.trim(),
+  doc.updated_at = new Date().toISOString()
 
   if (!doc.prof && req.userCtx.name) {
     doc.prof = req.userCtx.name

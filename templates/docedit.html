@@ -18,11 +18,8 @@
 <h1><a href="/">Accueil</a></h1>
 <h2>Question EDIT</h2>
 <%= templates.logged(data) %>
-<%= templates.question(data) %>
+<%= templates.questionedit(data) %>
 <p>Voilà.</p>
-<form method="post" action="/update/<%= data.doc._id %>">
-<input type="submit" value="edit">
-</form>
 <script type="text/javascript" src="/js/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 </body>

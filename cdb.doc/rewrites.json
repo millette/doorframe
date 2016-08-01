@@ -40,6 +40,10 @@
     "to": "_update/doc/:id"
   },
   {
+    "from": "update",
+    "to": "_update/doc"
+  },
+  {
     "from": "prof",
     "to": "_show/prof"
   }
