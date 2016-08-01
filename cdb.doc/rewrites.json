@@ -1,9 +1,5 @@
 [
   {
-    "from": "indx",
-    "to": "index.html"
-  },
-  {
     "from": "js/MathJax/*",
     "to": "../app/components/MathJax/*"
   },
@@ -30,6 +26,14 @@
   {
     "from": "doc/:id",
     "to": "_show/doc/:id"
+  },
+  {
+    "from": "doc/:id/edit",
+    "to": "_show/docedit/:id"
+  },
+  {
+    "from": "update/:id",
+    "to": "_update/doc/:id"
   },
   {
     "from": "prof",
