@@ -14,3 +14,7 @@ div.large-6 > div {
   padding: 1em;
   background: #e4e4e4;
 }
+
+textarea {
+  min-height: 8em;
+}

@@ -3,6 +3,11 @@ $(function () {
 
   $(document).foundation()
 
+  $('textarea').on('keyup', _.debounce(function (a, b, c) {
+    $('#preview').text($('textarea').val())
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview'])
+  }, 500))
+
   $('#logout').submit(function (ev) {
     var $form = $(this)
     ev.preventDefault()
