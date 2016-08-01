@@ -1,5 +1,5 @@
 <% if (data.user && data.user.name) { %>
-  <p>Rebonjour, <%= data.user.name %>.</p>
+  <p>Rebonjour, Prof. <%= data.user.name %>.</p>
   <form id="logout">
   <input type="submit" value="logout">
   </form>
@@ -11,7 +11,3 @@
   <input type="submit" value="login">
   </form>
 <% } %>
-
-<pre>
-<%= JSON.stringify(data, null, ' ') %>
-</pre>
