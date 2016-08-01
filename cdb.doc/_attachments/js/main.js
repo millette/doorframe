@@ -24,6 +24,7 @@ $(function () {
       })
         .done(function (resp) {
           console.log(resp)
+          window.location = '/'
         })
       return
     }
@@ -60,6 +61,7 @@ $(function () {
             // console.log('DONE2', Object.keys(resp))
             console.log('RESP:', resp)
             console.log('COO:', document.cookie)
+            window.location = '/'
           })
           .fail(function (resp) {
             // console.log('FAIL2', Object.keys(resp))
