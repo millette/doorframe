@@ -26,5 +26,9 @@
   {
     "from": "",
     "to": "_show/accueil"
+  },
+  {
+    "from": "prof",
+    "to": "_show/prof"
   }
 ]

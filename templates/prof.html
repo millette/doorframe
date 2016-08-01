@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<h1>Professeur</h1>
+<%= templates.proflogged(data) %>
+
+<p>Voilà.</p>
+<pre>
+<%- JSON.stringify(data, null, ' ') %>
+</pre>
+<pre>
+<%- JSON.stringify(data.user, null, ' ') %>
+</pre>
+<script type="text/javascript" src="js/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
