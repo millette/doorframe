@@ -3,5 +3,6 @@ body {
 }
 
 body > div.row.column {
+  margin: 1.5em 0;
   background: #f4f4f4;
 }
