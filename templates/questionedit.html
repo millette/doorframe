@@ -13,7 +13,7 @@
 <% } %>
 <form method="post" action="/update<%- data.doc._id ? ('/' + data.doc._id) : '' %>">
 <% if (!data.doc._id) { %>
-<label>id: <input type="text" name="id"></label>
+<label>id: <input required type="text" name="id"></label>
 <% } %>
 question:<br>
 <textarea cols="80" rows="10" name="question"><%- data.doc.question %></textarea><br>

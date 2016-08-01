@@ -3,7 +3,10 @@
   <form id="logout">
   <input type="submit" value="logout">
   </form>
-  <p><a href="/prof/<%- data.user.name %>/questions">Voir les questions que j'ai édité</a>.</p>
+  <p>
+    <a href="/prof/<%- data.user.name %>/questions">Voir les questions que j'ai édité</a>
+    ou <a href="/doc">créer une nouvelle question</a>.
+  </p>
 <% } else { %>
   <form id="proflogin" method="post" action="/session?next=/prof">
   <label>name: <input type="text" name="name" placeholder="username"></label>

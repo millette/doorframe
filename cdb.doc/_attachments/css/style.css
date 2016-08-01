@@ -6,6 +6,10 @@ body > div.row.column {
   background: #f4f4f4;
 }
 
+form {
+  padding: 1em 0;
+}
+
 div.large-6 > div {
   padding: 1em;
   background: #e4e4e4;
