@@ -3,7 +3,10 @@ body {
 }
 
 body > div.row.column {
-  margin-bottom: 1.5em;
-  padding: 0.5em;
   background: #f4f4f4;
+}
+
+div.large-6 > div {
+  padding: 1em;
+  background: #e4e4e4;
 }

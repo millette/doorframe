@@ -1,4 +1,6 @@
 <%= templates.htmlbegin({ withmathjax: true }) %>
+<div class="row">
+<div class="column large-6">
 <h1><a href="/">Accueil</a></h1>
 <h2>Question
 <% if (data.edit) { %>
@@ -7,7 +9,9 @@
 </h2>
 <%= templates.logged(data) %>
 </div>
-<div class="row column">
+<div class="column large-6">
 <%= templates.question(data) %>
 <p>Voilà.</p>
+</div>
+</div>
 <%= templates.htmlend() %>
