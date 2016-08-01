@@ -8,6 +8,14 @@
     "to": "../js/components/jquery/*"
   },
   {
+    "from": "js/foundation-sites/*",
+    "to": "../js/components/foundation-sites/*"
+  },
+  {
+    "from": "js/what-input/*",
+    "to": "../js/components/what-input/*"
+  },
+  {
     "from": "js/*",
     "to": "js/*"
   },

@@ -1,9 +1,9 @@
 <% if (data.user && data.user.name) { %>
   <p>Rebonjour,
   <% if (data.user.roles.indexOf('prof') === -1) { %>
-    <%= data.user.name + '.' %>
+    <%- data.user.name + '.' %>
   <% } else { %>
-    Prof. <a href="/prof"><%= data.user.name %></a>.
+    Prof. <a href="/prof"><%- data.user.name %></a>.
   <% } %>
   </p>
   <form id="logout">
@@ -11,6 +11,6 @@
   </form>
 <% } else { %>
   <form id="login">
-  <input type="text" name="name" placeholder="username">
+  <label>username: <input type="text" name="name" placeholder="username"></label>
   </form>
 <% } %>

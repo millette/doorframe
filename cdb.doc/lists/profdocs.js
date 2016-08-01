@@ -1,7 +1,10 @@
 function (head, req) {
   var row
   var s
+  const templates = require('views/lib/templates')
   start({ headers: { 'Content-Type': 'text/html' } })
+  send(templates.htmlbegin())
+  send('<h1><a href="/">Accueil</a></h1>')
   send('<ul>')
   while((row = getRow())) {
     log('row:' + JSON.stringify(row))
@@ -11,4 +14,5 @@ function (head, req) {
     send(s)
   }
   send('</ul>')
+  send(templates.htmlend())
 }

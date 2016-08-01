@@ -1,6 +1,8 @@
 $(function () {
   console.log('doc ready')
 
+  $(document).foundation()
+
   $('#logout').submit(function (ev) {
     var $form = $(this)
     ev.preventDefault()

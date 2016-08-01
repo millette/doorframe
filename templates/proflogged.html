@@ -1,13 +1,13 @@
 <% if (data.user && data.user.name) { %>
-  <p>Rebonjour, Prof. <%= data.user.name %>.</p>
+  <p>Rebonjour, Prof. <%- data.user.name %>.</p>
   <form id="logout">
   <input type="submit" value="logout">
   </form>
-  <p><a href="/prof/<%= data.user.name %>/questions">Voir les questions que j'ai édité</a>.</p>
+  <p><a href="/prof/<%- data.user.name %>/questions">Voir les questions que j'ai édité</a>.</p>
 <% } else { %>
   <form id="proflogin" method="post" action="/session?next=/prof">
-  name: <input type="text" name="name" placeholder="username"><br>
-  password: <input type="password" name="password"><br>
+  <label>name: <input type="text" name="name" placeholder="username"></label>
+  <label>password: <input type="password" name="password"></label>
   <input type="submit" value="login">
   </form>
 <% } %>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/js/foundation-sites/dist/foundation.min.css">
+<% if (data && data.withmathjax) { %>
+  <script type="text/javascript">
+    window.MathJax = {
+      AuthorInit: function () {
+        // couchdb n'aime vraiment pas l'usage de l'argument ?rev
+        // généré automatiquement par le loader MathJax;
+        // on s'en occupe ici (peut-être des effets secondaires..?)
+        window.MathJax.cdnVersion = ''
+      }
+    }
+  </script>
+  <script type="text/javascript" async src="/js/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<% } %>
+</head>
+<body>
+<div class="row column">
