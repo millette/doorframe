@@ -1,11 +1,16 @@
 <% if (data.user && data.user.name) { %>
   <p>Rebonjour, <%= data.user.name %>.</p>
-  <form id="login">
-  <input type="hidden" name="logout" value="logout">
+  <form id="logout">
   <input type="submit" value="logout">
   </form>
 <% } else { %>
-  <form id="login">
-  <input type="text" name="name" placeholder="username">
+  <form id="proflogin" method="post" action="/session?next=/prof">
+  name: <input type="text" name="name" placeholder="username"><br>
+  password: <input type="password" name="password"><br>
+  <input type="submit" value="login">
   </form>
 <% } %>
+
+<pre>
+<%= JSON.stringify(data, null, ' ') %>
+</pre>

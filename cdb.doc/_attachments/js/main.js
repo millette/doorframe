@@ -1,8 +1,23 @@
 $(function () {
   console.log('doc ready')
 
-  $('#login').submit(function (ev) {
+  $('#logout').submit(function (ev) {
+    var $form = $(this)
+    ev.preventDefault()
+    $.ajax({
+      url: '/session',
+      accepts: 'application/json',
+      contentType: 'application/json',
+      type: 'DELETE'
+    })
+      .done(function (resp) { window.location = '/' })
+      .fail(function (resp) {
+        console.log('FAIL2:', resp)
+        $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+      })
+  })
 
+  $('#login').submit(function (ev) {
     var data = {
       password: '' + Math.random(),
       roles: [],
@@ -14,20 +29,6 @@ $(function () {
 
     $form.serializeArray().forEach(function (x) { data[x.name] = x.value })
     ev.preventDefault()
-
-    if (data.logout) {
-      $.ajax({
-        url: '/session',
-        accepts: 'application/json',
-        contentType: 'application/json',
-        type: 'DELETE'
-      })
-        .done(function (resp) {
-          console.log(resp)
-          window.location = '/'
-        })
-      return
-    }
 
     data2 = {
       password: data.password,

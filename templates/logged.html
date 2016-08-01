@@ -1,7 +1,8 @@
 <% if (data.user && data.user.name) { %>
-  <p>Rebonjour, <%= data.user.name %>.</p>
-  <form id="login">
-  <input type="hidden" name="logout" value="logout">
+  <p>Rebonjour,
+  <%= data.user.roles.indexOf('prof') === -1 ? '' : 'Prof.' %>
+  <%= data.user.name %>.</p>
+  <form id="logout">
   <input type="submit" value="logout">
   </form>
 <% } else { %>
