@@ -1,8 +1,9 @@
 body {
-  background: #f4f4ff;
+  background: #e4e4e4;
 }
 
 body > div.row.column {
-  margin: 1.5em 0;
+  margin-bottom: 1.5em;
+  padding: 0.5em;
   background: #f4f4f4;
 }
