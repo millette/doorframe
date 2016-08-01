@@ -17,8 +17,8 @@
 <body>
 <h1><a href="/">Accueil</a></h1>
 <h2>Question
-<% if (!data.user.roles.indexOf('prof')) { %>
-  <small><a href="/<%= data.req.requested_path.join('/') %>/edit">edit</a></small>
+<% if (data.edit) { %>
+  <small><a href="<%= data.edit %>">edit</a></small>
 <% } %>
 </h2>
 <%= templates.logged(data) %>

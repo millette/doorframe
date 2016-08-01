@@ -1,7 +1,8 @@
 function (doc, req) {
-  templates = require('views/lib/templates')
-  if (!req.userCtx.roles.indexOf('prof')) {
-    return { body: templates.docedit({ req: req, doc: doc, user: req.userCtx }) }
+  const canEdit = req.userCtx.roles.indexOf('prof') !== -1
+  const templates = require('views/lib/templates')
+  if (canEdit) {
+    return { body: templates.docedit({ doc: doc || { }, user: req.userCtx }) }
   }
-  return { body: 'nope' }
+  return { code: 401, body: 'nope' }
 }

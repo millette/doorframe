@@ -24,6 +24,10 @@
     "to": "_show/accueil"
   },
   {
+    "from": "doc",
+    "to": "_show/docedit"
+  },
+  {
     "from": "doc/:id",
     "to": "_show/doc/:id"
   },

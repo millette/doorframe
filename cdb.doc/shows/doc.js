@@ -1,5 +1,12 @@
 function (doc, req) {
-  templates = require('views/lib/templates')
+  const canEdit = req.userCtx.roles.indexOf('prof') !== -1
+  const templates = require('views/lib/templates')
 
-  return { body: templates.doc({ req: req, doc: doc, user: req.userCtx }) }
+  return {
+    body: templates.doc({
+      edit: canEdit && ('/' + req.requested_path.join('/') + '/edit'),
+      doc: doc,
+      user: req.userCtx
+    })
+  }
 }
