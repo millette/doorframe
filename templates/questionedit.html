@@ -17,12 +17,13 @@
 <% } else { %>
 <label>id: <input required type="text" name="id"></label>
 <% } %>
+<label>examens: <input required type="text" name="examens" value="<%- data.doc.examens && data.doc.examens.join(', ') %>" aria-describedby="examensHelpText"></label>
+<p class="help-text" id="examensHelpText">Identifiants d'examens, séparés par des virgules.</p>
 question:<br>
 <textarea name="question"><%- data.doc.question %></textarea><br>
 <div id="preview"></div>
 <label>réponse: <input aria-describedby="answerHelpText" required type="text" name="answer" value="<%- data.doc.answer %>"></label>
 <p class="help-text" id="answerHelpText">S'il s'agit d'une question à choix de réponses, entrez le numéro (1, 2, 3, 4 ou 5) de la bonne réponse. Autrement, entrez la réponse telle quelle.</p>
-
 <label>choix de réponse #1: <input type="text" name="choice1" value="<%- data.doc.choices && data.doc.choices[0] %>"></label>
 <label>choix de réponse #2: <input type="text" name="choice2" value="<%- data.doc.choices && data.doc.choices[1] %>"></label>
 <label>choix de réponse #3: <input type="text" name="choice3" value="<%- data.doc.choices && data.doc.choices[2] %>"></label>

@@ -4,6 +4,11 @@
   <small><%- data.doc.updated_at %></small>
 <% } %>
 </h3>
+<% if (data.doc.examens && data.doc.examens.length) { %>
+<h4>Examens</h3>
+<p><%= data.doc.examens.map(function (exam) { return '<span class="label">' + _.escape(exam) + '</span>' }).join(' ') %></p>
+<% } %>
+
 <h4>Question</h4>
 <p><%- data.doc.question %></p>
 <% if (data.doc.choices && data.doc.choices.length) { %>
