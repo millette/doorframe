@@ -2,8 +2,8 @@ $(function () {
   $(document).foundation()
 
   $('input[name=choice]').on('change', function () {
-    $('input[name=choice]').each(function () { $(this).parents('label').removeClass('primary') })
-    $(this).parents('label').addClass('primary')
+    $('input[name=choice]').each(function () { $(this).parent().removeClass('primary') })
+    $(this).parent().addClass('primary')
   })
 
   $('textarea').on('keyup', _.debounce(function () {
