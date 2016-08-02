@@ -1,4 +1,4 @@
-<div>
+<div class="callout success">
 <h3><%- data.doc._id %>
 <% if (data.doc.updated_at) { %>
   <small><%- data.doc.updated_at %></small>
@@ -6,4 +6,18 @@
 </h3>
 <h4>Question</h4>
 <p><%- data.doc.question %></p>
+<form>
+<% if (data.doc.choices && data.doc.choices.length) { %>
+<h4>Choix de réponses</h4>
+<ul class="no-bullet choices">
+  <% data.doc.choices.forEach(function (choice, n) { %>
+  <li class="callout"><label><input type="radio" name="choice" value="<%- n + 1 %>" required> <%- choice %></label></li>
+<% }) %>
+</ul>
+<% } else { %>
+<h4>Réponse</h4>
+<label>Votre réponse: <input type="text" name="answer"></label>
+<% } %>
+<input type="submit">
+</form>
 </div>
