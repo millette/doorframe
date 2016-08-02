@@ -6,15 +6,19 @@
 </h3>
 <% if (data.doc.examens && data.doc.examens.length) { %>
 <h4>Examens</h3>
-<p><%= data.doc.examens.map(function (exam) { return '<span class="label">' + _.escape(exam) + '</span>' }).join(' ') %></p>
+<p><%= data.doc.examens.map(function (exam) {
+  return '<span class="label">' + _.escape(exam) + '</span>'
+}).join(' ') %></p>
 <% } %>
-
 <h4>Question</h4>
 <p><%- data.doc.question %></p>
 <% if (data.doc.choices && data.doc.choices.length) { %>
 <h4>Choix de réponses</h4>
 <% if (data.doc.answer < 1 || data.doc.answer > data.doc.choices.length) { %>
-<p class="callout warning"><strong>Attention:</strong> la réponse <code><%- data.doc.answer %></code> ne correspond à aucun choix de réponses.</p>
+<p class="callout warning">
+  <strong>Attention:</strong>
+  la réponse <code><%- data.doc.answer %></code> ne correspond à aucun choix de réponses.
+</p>
 <% } %>
 <ol class="multiplechoices">
 <% data.doc.choices.forEach(function (choice, n) { %>
