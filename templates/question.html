@@ -10,7 +10,7 @@
   return '<span class="label">' + _.escape(exam) + '</span>'
 }).join(' ') %></p>
 <% } %>
-<h4>Question</h4>
+<h4>Question <small>(position: <%- data.doc.position %>)</small></h4>
 <p><%- data.doc.question %></p>
 <% if (data.doc.choices && data.doc.choices.length) { %>
 <h4>Choix de réponses</h4>

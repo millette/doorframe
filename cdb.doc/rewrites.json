@@ -67,7 +67,7 @@
     "from": "exams",
     "to": "_list/exams/byexam",
     "query": {
-      "group": "true"
+      "group_level": "1"
     }
   },
   {

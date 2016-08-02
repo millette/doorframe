@@ -17,6 +17,7 @@
 <% } else { %>
 <label>id: <input required type="text" name="id"></label>
 <% } %>
+<label>position: <input required type="range" min="1" max="1000" name="position" value="<%- data.doc.position %>"></label>
 <label>examens: <input required type="text" name="examens" value="<%- data.doc.examens && data.doc.examens.join(', ') %>" aria-describedby="examensHelpText"></label>
 <p class="help-text" id="examensHelpText">Identifiants d'examens, séparés par des virgules.</p>
 question:<br>
