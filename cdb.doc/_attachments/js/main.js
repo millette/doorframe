@@ -16,6 +16,18 @@ $(function () {
     }, 600))
   }
 
+  $('.quiz').submit(function (ev) {
+    var $form = $(this)
+    ev.preventDefault()
+    console.log('quizzed!')
+    $('input[type=submit]', $form)
+      .blur()
+      .addClass('alert')
+      .addClass('disabled')
+      .val('Répondu!')
+    $('input', $form).prop('disabled', true)
+  })
+
   $('#logout').submit(function (ev) {
     var $form = $(this)
     ev.preventDefault()
