@@ -8,18 +8,14 @@
 <p><%- data.doc.question %></p>
 <% if (data.doc.choices && data.doc.choices.length) { %>
 <h4>Choix de réponses</h4>
-<ol class="multiplechoices">
-<% data.doc.choices.forEach(function (choice, n) { %>
-  <% if (n + 1 == data.doc.answer) { %>
-    <li class="rightanswer"><%- choice + ' *' %></li>
-  <% } else { %>
-    <li><%- choice %></li>
-  <% } %>
-<% }) %>
-</ol>
 <% if (data.doc.answer < 1 || data.doc.answer > data.doc.choices.length) { %>
 <p class="callout warning"><strong>Attention:</strong> la réponse <code><%- data.doc.answer %></code> ne correspond à aucun choix de réponses.</p>
 <% } %>
+<ol class="multiplechoices">
+<% data.doc.choices.forEach(function (choice, n) { %>
+  <li class="callout<%- n + 1 == data.doc.answer ? ' success' : '' %>"><%- choice %></li>
+<% }) %>
+</ol>
 <% } else { %>
 <h4>Réponse</h4>
 <p><%- data.doc.answer %></p>
