@@ -64,6 +64,32 @@
     "to": "_show/prof"
   },
   {
+    "from": "exams",
+    "to": "_list/exams/byexam",
+    "query": {
+      "group": "true"
+    }
+  },
+  {
+    "from": "exam/:exam",
+    "to": "_list/exam/byexam",
+    "query": {
+      "reduce": "false",
+      "startkey": [":exam"],
+      "endkey": [":exam", "\ufff0"]
+    }
+  },
+  {
+    "from": "exam/:exam/expanded",
+    "to": "_list/examexpanded/byexam",
+    "query": {
+      "reduce": "false",
+      "include_docs": "true",
+      "startkey": [":exam"],
+      "endkey": [":exam", "\ufff0"]
+    }
+  },
+  {
     "from": "prof/:prof/questions",
     "to": "_list/profdocs/profdocs",
     "query": {
