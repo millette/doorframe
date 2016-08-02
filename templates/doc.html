@@ -10,7 +10,11 @@
 <%= templates.logged(data) %>
 </div>
 <div class="column large-8">
+<% if (data.edit) { %>
 <%= templates.question(data) %>
+<% } else { %>
+<%= templates.questiononly(data) %>
+<% }  %>
 </div>
 </div>
 <%= templates.htmlend() %>

@@ -1,0 +1,9 @@
+<div>
+<h3><%- data.doc._id %>
+<% if (data.doc.updated_at) { %>
+  <small><%- data.doc.updated_at %></small>
+<% } %>
+</h3>
+<h4>Question</h4>
+<p><%- data.doc.question %></p>
+</div>
