@@ -8,7 +8,9 @@ function (doc, req) {
 
   doc.question = req.form.question.trim()
   doc.answer = req.form.answer.trim()
-  doc.examens = req.form.examens.split(',').map(function (exam) { return exam.trim() })
+  doc.examens = req.form.examens.split(',')
+    .map(function (exam) { return exam.trim() })
+    .sort()
   doc.choices = []
   if (req.form.choice1) {
     doc.choices.push(req.form.choice1.trim())
