@@ -1,7 +1,7 @@
 <% if (data.user && data.user.name) { %>
   <p>Rebonjour, Prof. <%- data.user.name %>.</p>
   <form id="logout">
-  <input type="submit" value="logout">
+  <input class="button alert" type="submit" value="logout">
   </form>
   <p>
     <a href="/prof/<%- data.user.name %>/questions">Voir les questions que j'ai édité</a>
@@ -11,6 +11,6 @@
   <form id="proflogin" method="post" action="/session?next=/prof">
   <label>name: <input type="text" name="name" placeholder="username"></label>
   <label>password: <input type="password" name="password"></label>
-  <input type="submit" value="login">
+  <input class="button" type="submit" value="login">
   </form>
 <% } %>

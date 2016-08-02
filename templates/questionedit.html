@@ -29,7 +29,8 @@ question:<br>
 <label>choix de réponse #3: <input type="text" name="choice3" value="<%- data.doc.choices && data.doc.choices[2] %>"></label>
 <label>choix de réponse #4: <input type="text" name="choice4" value="<%- data.doc.choices && data.doc.choices[3] %>"></label>
 <label>choix de réponse #5: <input type="text" name="choice5" value="<%- data.doc.choices && data.doc.choices[4] %>"></label>
-<input type="submit" value="edit">
+<input class="button" type="submit" value="edit">
+<a class="button warning" href="/doc/<%- data.doc._id %>">Annuler</a>
 </form>
 </div>
 <script type="text/javascript" src="/js/lodash.custom.js"></script>
