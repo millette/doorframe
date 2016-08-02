@@ -3,7 +3,7 @@ function (doc, req) {
 
   if (req.userCtx.roles.indexOf('prof') === -1) {
     start({ code: 401, headers: { 'Content-Type': 'text/html; charset=utf-8' } })
-    return send('Doit être loggué en tant que prof.')
+    return 'Doit être loggué en tant que prof.'
   }
 
   return {
