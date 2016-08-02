@@ -18,7 +18,7 @@ function (doc, req) {
         doc.choices.push(req.form.choice3.trim())
         if (req.form.choice4) {
           doc.choices.push(req.form.choice4.trim())
-          if (req.form.choice3) {
+          if (req.form.choice5) {
             doc.choices.push(req.form.choice5.trim())
           }
         }
