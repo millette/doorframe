@@ -10,8 +10,8 @@
 <% if (data.doc.choices && data.doc.choices.length) { %>
 <h4>Choix de réponses</h4>
 <ul class="no-bullet choices">
-  <% data.doc.choices.forEach(function (choice, n) { %>
-  <li class="callout"><label><input type="radio" name="choice" value="<%- n + 1 %>" required> <%- choice %></label></li>
+<% data.doc.choices.forEach(function (choice, n) { %>
+  <li><label class="callout"><input type="radio" name="choice" value="<%- n + 1 %>" required> <%- choice %></label></li>
 <% }) %>
 </ul>
 <% } else { %>

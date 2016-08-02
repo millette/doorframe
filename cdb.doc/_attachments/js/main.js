@@ -1,9 +1,12 @@
 $(function () {
-  console.log('doc ready')
-
   $(document).foundation()
 
-  $('textarea').on('keyup', _.debounce(function (a, b, c) {
+  $('input[name=choice]').on('change', function () {
+    $('input[name=choice]').each(function () { $(this).parents('label').removeClass('primary') })
+    $(this).parents('label').addClass('primary')
+  })
+
+  $('textarea').on('keyup', _.debounce(function () {
     $('#preview').text($('textarea').val())
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview'])
   }, 500))
