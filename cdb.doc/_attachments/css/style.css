@@ -18,3 +18,14 @@ div.large-6 > div {
 textarea {
   min-height: 8em;
 }
+
+.rightanswer {
+  background: #ddd;
+}
+
+/*
+.multiplechoices {
+  direction: rtl;
+  margin-right: 2em;
+}
+*/

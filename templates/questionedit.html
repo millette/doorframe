@@ -19,9 +19,16 @@
 <% } %>
 question:<br>
 <textarea name="question"><%- data.doc.question %></textarea><br>
+<div id="preview"></div>
+<label>réponse: <input aria-describedby="answerHelpText" required type="text" name="answer" value="<%- data.doc.answer %>"></label>
+<p class="help-text" id="answerHelpText">S'il s'agit d'une question à choix de réponses, entrez le numéro (1, 2, 3, 4 ou 5) de la bonne réponse. Autrement, entrez la réponse telle quelle.</p>
+
+<label>choix de réponse #1: <input type="text" name="choice1" value="<%- data.doc.choices && data.doc.choices[0] %>"></label>
+<label>choix de réponse #2: <input type="text" name="choice2" value="<%- data.doc.choices && data.doc.choices[1] %>"></label>
+<label>choix de réponse #3: <input type="text" name="choice3" value="<%- data.doc.choices && data.doc.choices[2] %>"></label>
+<label>choix de réponse #4: <input type="text" name="choice4" value="<%- data.doc.choices && data.doc.choices[3] %>"></label>
+<label>choix de réponse #5: <input type="text" name="choice5" value="<%- data.doc.choices && data.doc.choices[4] %>"></label>
 <input type="submit" value="edit">
 </form>
-</div>
-<div id="preview">
 </div>
 <script type="text/javascript" src="/js/lodash.custom.js"></script>
