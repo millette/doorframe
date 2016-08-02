@@ -3,7 +3,9 @@ $(function () {
   $(document).foundation()
 
   $('input[name=choice]').on('change', function () {
-    $('input[name=choice]').each(function () { $(this).parent().removeClass('primary') })
+    $(this).parents('.choices').each(function () {
+      $('.callout', this).removeClass('primary')
+    })
     $(this).parent().addClass('primary')
   })
 
