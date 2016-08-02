@@ -1,6 +1,79 @@
 $(function () {
   var $question = $('textarea[name=question]')
-  var username
+
+  if ($('.quiz').length) {
+    $.ajax({
+      url: '/session',
+      accepts: 'application/json',
+      dataType: 'json',
+      contentType: 'application/json'
+    })
+      .done(function (resp) {
+        const username = resp.userCtx.name
+        $('.quiz').submit(function (ev) {
+          var $form = $(this)
+          ev.preventDefault()
+          console.log('quizzed!')
+
+          $.ajax({
+            url: '/login/org.couchdb.user:' + username,
+            accepts: 'application/json',
+            dataType: 'json',
+            contentType: 'application/json'
+          })
+            .done(function (userDoc) {
+              const answer = {}
+              $form.serializeArray().forEach(function (p) { answer[p.name] = p.value } )
+              console.log('RESPUSER:', userDoc)
+              if (!userDoc.answers) {
+                userDoc.answers = { }
+              }
+              if (!userDoc.answers[answer.exam]) {
+                userDoc.answers[answer.exam] = { }
+              }
+              if (userDoc.answers[answer.exam][answer.id]) {
+                // already responded to this question in this exam!
+                console.log('déjà répondu à ' + answer.id + ' dans ' + answer.exam +
+                  ' le ' + userDoc.answers[answer.exam][answer.id].created_at)
+                return
+              }
+              userDoc.answers[answer.exam][answer.id] = { created_at: new Date().toISOString() }
+              if (answer.choice) {
+                userDoc.answers[answer.exam][answer.id].response = parseInt(answer.choice, 10)
+              } else {
+                userDoc.answers[answer.exam][answer.id].response = answer.answer
+              }
+              // console.log('USERDOC:', userDoc)
+
+              $.ajax({
+                url: '/login/org.couchdb.user:' + username,
+                accepts: 'application/json',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(userDoc),
+                type: 'PUT'
+              })
+                .done(function (resp) {
+                  $('input[type=submit]', $form)
+                    .blur()
+                    .addClass('alert')
+                    .addClass('disabled')
+                    .val('Répondu!')
+                  $('input', $form).prop('disabled', true)
+                })
+                .fail(function (resp) {
+                  console.log('FAIL3:', resp)
+                  $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+                })
+            })
+            .fail(function (resp) {
+              console.log('FAIL9:', resp)
+              // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+            })
+        })
+      })
+      .fail(function (resp) { console.log('FAIL44:', resp) })
+  }
 
   $(document).foundation()
 
@@ -17,80 +90,6 @@ $(function () {
       MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview'])
     }, 600))
   }
-
-  if ($('.quiz').length) {
-    // console.log('got a quiz page', $quiz)
-    $.ajax({
-      url: '/session',
-      accepts: 'application/json',
-      dataType: 'json',
-      contentType: 'application/json'
-    })
-      .done(function (resp) { username = resp.userCtx.name })
-      .fail(function (resp) { console.log('FAIL44:', resp) })
-  }
-
-  $('.quiz').submit(function (ev) {
-    var $form = $(this)
-    ev.preventDefault()
-    console.log('quizzed!')
-
-    $.ajax({
-      url: '/login/org.couchdb.user:' + username,
-      accepts: 'application/json',
-      dataType: 'json',
-      contentType: 'application/json'
-    })
-      .done(function (userDoc) {
-        const answer = {}
-        $form.serializeArray().forEach(function (p) { answer[p.name] = p.value } )
-        console.log('RESPUSER:', userDoc)
-        if (!userDoc.answers) {
-          userDoc.answers = { }
-        }
-        if (!userDoc.answers[answer.exam]) {
-          userDoc.answers[answer.exam] = { }
-        }
-        if (userDoc.answers[answer.exam][answer.id]) {
-          // already responded to this question in this exam!
-          console.log('déjà répondu à ' + answer.id + ' dans ' + answer.exam +
-            ' le ' + userDoc.answers[answer.exam][answer.id].created_at)
-          return
-        }
-        userDoc.answers[answer.exam][answer.id] = { created_at: new Date().toISOString() }
-        if (answer.choice) {
-          userDoc.answers[answer.exam][answer.id].response = parseInt(answer.choice, 10)
-        } else {
-          userDoc.answers[answer.exam][answer.id].response = answer.answer
-        }
-        // console.log('USERDOC:', userDoc)
-
-        $.ajax({
-          url: '/login/org.couchdb.user:' + username,
-          accepts: 'application/json',
-          dataType: 'json',
-          contentType: 'application/json',
-          data: JSON.stringify(userDoc),
-          type: 'PUT'
-        })
-          .done(function (resp) {
-            $('input[type=submit]', $form)
-              .blur()
-              .addClass('alert')
-              .addClass('disabled')
-              .val('Répondu!')
-            $('input', $form).prop('disabled', true)
-          })
-          .fail(function (resp) {
-            console.log('FAIL3:', resp)
-            $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-          })
-      })
-      .fail(function (resp) {
-        console.log('FAIL9:', resp)
-        // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-      })
-  })
 
   $('#logout').submit(function (ev) {
     var $form = $(this)
@@ -152,7 +151,7 @@ $(function () {
             $('body').prepend('<div>Hello ' + resp.name + '</div>')
             // console.log('DONE2', Object.keys(resp))
             console.log('RESP:', resp)
-            console.log('COO:', document.cookie)
+            // console.log('COO:', document.cookie)
             window.location = '/'
           })
           .fail(function (resp) {
