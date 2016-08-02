@@ -1,4 +1,5 @@
 $(function () {
+  var $question = $('textarea[name=question]')
   $(document).foundation()
 
   $('input[name=choice]').on('change', function () {
@@ -6,10 +7,12 @@ $(function () {
     $(this).parent().addClass('primary')
   })
 
-  $('textarea').on('keyup', _.debounce(function () {
-    $('#preview').text($('textarea').val())
-    MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview'])
-  }, 500))
+  if ($question) {
+    $question.on('keyup', _.debounce(function () {
+      $('#preview').text($question.val())
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'preview'])
+    }, 600))
+  }
 
   $('#logout').submit(function (ev) {
     var $form = $(this)
