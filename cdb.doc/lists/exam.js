@@ -7,14 +7,13 @@ function (head, req) {
   send('<h1><a href="/">Accueil</a></h1>')
   send('<h2>Liste des questions de l\'examen <span class="label">' + req.query.exam + '</span></h2>')
   send('<p><a href="/exam/' + req.query.exam + '/expanded">Voir l\'examen</a>')
-  if (req.userCtx.name && req.userCtx.roles.indexOf('prof') === -1) {
-    send(' ou encore <a href="/exam/' + req.query.exam + '/results">consulter mes résultats</a>.</p>')
+  if (req.userCtx.name) {
+    if (req.userCtx.roles.indexOf('prof') === -1) {
+      send(' ou encore <a href="/exam/' + req.query.exam + '/results">consulter mes résultats</a>.</p>')
+    } else {
+      send(' ou encore <a href="/exam/' + req.query.exam + '/reorder">réordonner les questions</a>.</p>')
+    }
   }
-  // TODO
-  if (req.userCtx.name && req.userCtx.roles.indexOf('prof') !== -1) {
-    send(' ou encore <a href="/exam/' + req.query.exam + '/reorder">réordonner les questions</a>.</p>')
-  }
-  // ^^ TODO
   send('</p>')
   send('<ul>')
   while((row = getRow())) {
