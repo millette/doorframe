@@ -8,6 +8,10 @@
     "to": "../js/components/jquery/*"
   },
   {
+    "from": "js/html.sortable/*",
+    "to": "../js/components/html.sortable/*"
+  },
+  {
     "from": "js/foundation-sites/*",
     "to": "../js/components/foundation-sites/*"
   },
@@ -56,6 +60,13 @@
     "to": "_update/doc/:id"
   },
   {
+    "from": "position/:exam/:question/:position",
+    "to": "_update/position/:question",
+    "formats": {
+      "position": "int"
+    }
+  },
+  {
     "from": "update",
     "to": "_update/doc"
   },
@@ -73,6 +84,15 @@
   {
     "from": "exam/:exam",
     "to": "_list/exam/byexam",
+    "query": {
+      "reduce": "false",
+      "startkey": [":exam"],
+      "endkey": [":exam", "\ufff0"]
+    }
+  },
+  {
+    "from": "exam/:exam/reorder",
+    "to": "_list/examreorder/byexam",
     "query": {
       "reduce": "false",
       "startkey": [":exam"],
