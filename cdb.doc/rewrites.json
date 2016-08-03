@@ -102,7 +102,7 @@
     "to": "_view/verifychoice",
     "query": {
       "startkey": [":question", ":answer"],
-      "endkey": [":question", "\ufff0"],
+      "endkey": [":question", ":answer", "\ufff0"],
       "limit": "1"
     },
     "formats": {
