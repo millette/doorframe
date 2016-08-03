@@ -8,12 +8,13 @@ function (doc, req) {
 
   doc.position = Math.min(Math.max(parseInt(req.form.position, 10), 1), 1000)
   doc.question = req.form.question.trim()
-  doc.answer = req.form.answer.trim()
   doc.examens = req.form.examens.split(',')
     .map(function (exam) { return exam.trim() })
     .sort()
   doc.choices = []
   if (req.form.choice1) {
+    doc.choice = parseInt(req.form.answer, 10)
+    delete doc.answer
     doc.choices.push(req.form.choice1.trim())
     if (req.form.choice2) {
       doc.choices.push(req.form.choice2.trim())
@@ -27,6 +28,9 @@ function (doc, req) {
         }
       }
     }
+  } else {
+    doc.answer = req.form.answer.trim()
+    delete doc.choice
   }
 
   doc.updated_at = new Date().toISOString()
