@@ -96,5 +96,17 @@
       "startkey": [":prof"],
       "endkey": [":prof", "\ufff0"]
     }
+  },
+  {
+    "from": "verifymulti/:question/:answer",
+    "to": "_view/verifychoice",
+    "query": {
+      "startkey": [":question", ":answer"],
+      "endkey": [":question", "\ufff0"],
+      "limit": "1"
+    },
+    "formats": {
+      "answer": "int"
+    }
   }
 ]
