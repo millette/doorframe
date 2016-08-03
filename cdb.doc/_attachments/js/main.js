@@ -46,25 +46,42 @@ $(function () {
               // console.log('USERDOC:', userDoc)
 
               $.ajax({
-                url: '/login/org.couchdb.user:' + username,
+                url: '/verifymulti/' + answer.id + '/' + answer.choice,
                 accepts: 'application/json',
                 dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify(userDoc),
-                type: 'PUT'
+                contentType: 'application/json'
               })
                 .done(function (resp) {
-                  $('input[type=submit]', $form)
-                    .blur()
-                    .addClass('alert')
-                    .addClass('disabled')
-                    .val('Répondu!')
-                  $('input', $form).prop('disabled', true)
+                  // console.log('VERIFY:', resp.rows.length)
+                  userDoc.answers[answer.exam][answer.id].corrent = resp.rows.length === 1
+
+                  $.ajax({
+                    url: '/login/org.couchdb.user:' + username,
+                    accepts: 'application/json',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userDoc),
+                    type: 'PUT'
+                  })
+                    .done(function (resp) {
+                      $('input[type=submit]', $form)
+                        .blur()
+                        .addClass('alert')
+                        .addClass('disabled')
+                        .val('Répondu!')
+                      $('input', $form).prop('disabled', true)
+                    })
+                    .fail(function (resp) {
+                      console.log('FAIL3:', resp)
+                      $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+                    })
                 })
                 .fail(function (resp) {
-                  console.log('FAIL3:', resp)
-                  $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+                  console.log('FAIL33:', resp)
+                  // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
                 })
+
+
             })
             .fail(function (resp) {
               console.log('FAIL9:', resp)
