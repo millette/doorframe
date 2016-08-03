@@ -1,6 +1,41 @@
 $(function () {
   var $question = $('textarea[name=question]')
 
+  if ($('.examreorder').length) {
+    var exam = $('.examreorder').data('exam')
+    sortable('.examreorder')
+    $('.examreorder').on('sortupdate', function (ev) {
+      var pprev
+      var pnext
+      var pos
+      var u
+
+      pprev = $(ev.detail.item.previousSibling).data('position') || 1
+      pnext = $(ev.detail.item.nextSibling).data('position') || 1000
+      pos = Math.round((pnext + pprev) / 2)
+      console.log('prev', pprev, ev.detail.item.previousSibling)
+      console.log('next', pnext, ev.detail.item.nextSibling)
+      console.log('pos:', pos)
+      $(ev.detail.item).data('position', pos)
+      u = '/position/' + exam + '/' + $(ev.detail.item).data('id') + '/' + pos
+      console.log('URL:', u)
+      $.ajax({
+        url: u,
+        accepts: 'application/json',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST'
+      })
+        .done(function (resp) {
+          console.log('REORDERED:', resp)
+        })
+        .fail(function (resp) {
+          console.log('FAIL83:', resp)
+        })
+
+    })
+  }
+
   if ($('.ajaxeduser').length) {
       $.ajax({
         url: '/login/org.couchdb.user:' + $('.ajaxeduser').data('user'),
