@@ -51,7 +51,8 @@ $(function () {
           for (r = 0; r < k.length; ++r) {
             if (userDoc.answers[exam][k[r]].correct || userDoc.answers[exam][k[r]].corrent) { ++correctes }
           }
-          var str = '<p>Nombre de questions: ' + k.length + '</p>'
+          var str = '<p>Nombre de questions de l\'examen: ' + userDoc.answers[exam].n_questions + '</p>'
+          str += '<p>Nombre de questions auxquelles on a répondu: ' + k.length + '</p>'
           str += '<p>Réponses correctes: ' + correctes + '</p>'
           str += '<pre>' + JSON.stringify(userDoc.answers[exam], null, ' ') + '</pre>'
           $('.ajaxeduser').html(str)
@@ -62,96 +63,89 @@ $(function () {
       })
   }
 
-  if ($('.quiz').length) {
+  $('.quiz').submit(function (ev) {
+    var $form = $(this)
+    var username = $('#quizpage').data('user')
+    var nQuestions = $('form.quiz', '#quizpage').length
+
+    ev.preventDefault()
+    console.log('quizzed!', username, nQuestions)
+
     $.ajax({
-      url: '/session',
+      url: '/login/org.couchdb.user:' + username,
       accepts: 'application/json',
       dataType: 'json',
       contentType: 'application/json'
     })
-      .done(function (resp) {
-        const username = resp.userCtx.name
-        $('.quiz').submit(function (ev) {
-          var $form = $(this)
-          ev.preventDefault()
-          console.log('quizzed!')
+      .done(function (userDoc) {
+        var answer = {}
+        $form.serializeArray().forEach(function (p) { answer[p.name] = p.value } )
+        console.log('RESPUSER:', userDoc)
+        if (!userDoc.answers) {
+          userDoc.answers = { }
+        }
+        if (!userDoc.answers[answer.exam]) {
+          userDoc.answers[answer.exam] = { n_questions: nQuestions }
+        } else if (!userDoc.answers[answer.exam].n_questions) {
+          userDoc.answers[answer.exam].n_questions = nQuestions
+        }
+        if (userDoc.answers[answer.exam][answer.id]) {
+          // already responded to this question in this exam!
+          console.log('déjà répondu à ' + answer.id + ' dans ' + answer.exam +
+            ' le ' + userDoc.answers[answer.exam][answer.id].created_at)
+          return
+        }
+        userDoc.answers[answer.exam][answer.id] = { created_at: new Date().toISOString() }
+        if (answer.choice) {
+          userDoc.answers[answer.exam][answer.id].response = parseInt(answer.choice, 10)
+        } else {
+          userDoc.answers[answer.exam][answer.id].response = answer.answer
+        }
+        // console.log('USERDOC:', userDoc)
 
-          $.ajax({
-            url: '/login/org.couchdb.user:' + username,
-            accepts: 'application/json',
-            dataType: 'json',
-            contentType: 'application/json'
-          })
-            .done(function (userDoc) {
-              const answer = {}
-              $form.serializeArray().forEach(function (p) { answer[p.name] = p.value } )
-              console.log('RESPUSER:', userDoc)
-              if (!userDoc.answers) {
-                userDoc.answers = { }
-              }
-              if (!userDoc.answers[answer.exam]) {
-                userDoc.answers[answer.exam] = { }
-              }
-              if (userDoc.answers[answer.exam][answer.id]) {
-                // already responded to this question in this exam!
-                console.log('déjà répondu à ' + answer.id + ' dans ' + answer.exam +
-                  ' le ' + userDoc.answers[answer.exam][answer.id].created_at)
-                return
-              }
-              userDoc.answers[answer.exam][answer.id] = { created_at: new Date().toISOString() }
-              if (answer.choice) {
-                userDoc.answers[answer.exam][answer.id].response = parseInt(answer.choice, 10)
-              } else {
-                userDoc.answers[answer.exam][answer.id].response = answer.answer
-              }
-              // console.log('USERDOC:', userDoc)
-
-              $.ajax({
-                url: '/verifymulti/' + answer.id + '/' + answer.choice,
-                accepts: 'application/json',
-                dataType: 'json',
-                contentType: 'application/json'
-              })
-                .done(function (resp) {
-                  // console.log('VERIFY:', resp.rows.length)
-                  userDoc.answers[answer.exam][answer.id].correct = resp.rows.length === 1
-
-                  $.ajax({
-                    url: '/login/org.couchdb.user:' + username,
-                    accepts: 'application/json',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userDoc),
-                    type: 'PUT'
-                  })
-                    .done(function (resp) {
-                      $('input[type=submit]', $form)
-                        .blur()
-                        .addClass('alert')
-                        .addClass('disabled')
-                        .val('Répondu!')
-                      $('input', $form).prop('disabled', true)
-                    })
-                    .fail(function (resp) {
-                      console.log('FAIL3:', resp)
-                      $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-                    })
-                })
-                .fail(function (resp) {
-                  console.log('FAIL33:', resp)
-                  // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-                })
-
-
-            })
-            .fail(function (resp) {
-              console.log('FAIL9:', resp)
-              // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-            })
+        $.ajax({
+          url: '/verifymulti/' + answer.id + '/' + answer.choice,
+          accepts: 'application/json',
+          dataType: 'json',
+          contentType: 'application/json'
         })
+          .done(function (resp) {
+            // console.log('VERIFY:', resp.rows.length)
+            userDoc.answers[answer.exam][answer.id].correct = resp.rows.length === 1
+
+            $.ajax({
+              url: '/login/org.couchdb.user:' + username,
+              accepts: 'application/json',
+              dataType: 'json',
+              contentType: 'application/json',
+              data: JSON.stringify(userDoc),
+              type: 'PUT'
+            })
+              .done(function (resp) {
+                $('input[type=submit]', $form)
+                  .blur()
+                  .addClass('alert')
+                  .addClass('disabled')
+                  .val('Répondu!')
+                $('input', $form).prop('disabled', true)
+              })
+              .fail(function (resp) {
+                console.log('FAIL3:', resp)
+                $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+              })
+          })
+          .fail(function (resp) {
+            console.log('FAIL33:', resp)
+            // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+          })
+
+
       })
-      .fail(function (resp) { console.log('FAIL44:', resp) })
-  }
+      .fail(function (resp) {
+        console.log('FAIL9:', resp)
+        // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+      })
+  })
 
   $(document).foundation()
 
