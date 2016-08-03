@@ -6,7 +6,7 @@ function (doc, req) {
     }
   }
 
-  doc.position = Math.min(Math.max(parseInt(req.form.position, 10), 1), 1000)
+  // doc.position = Math.min(Math.max(parseInt(req.form.position, 10), 1), 1000)
   doc.question = req.form.question.trim()
   doc.examens = req.form.examens.split(',')
     .map(function (exam) { return exam.trim() })
