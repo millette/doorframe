@@ -9,11 +9,11 @@ function (head, req) {
   start({ headers: { 'Content-Type': 'text/html; charset=utf-8' } })
   send(templates.htmlbegin({ withmathjax: true }))
   send('<h1><a href="/">Accueil</a></h1>')
-  send('<h2>Les questions (expanded) de l\'examen <span class="label">' + req.requested_path[1] + '</span></h2>')
+  send('<h2>Les questions (expanded) de l\'examen <span class="label">' + req.query.exam + '</span></h2>')
   send('<div class="row">')
   while((row = getRow())) {
     s = '<div class="column large-6">'
-    s += templates.questiononly({ exam: req.requested_path[1], doc: row.doc })
+    s += templates.questiononly({ exam: req.query.exam, doc: row.doc })
     s += ' </div>'
     send(s)
   }
