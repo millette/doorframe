@@ -90,6 +90,10 @@
     }
   },
   {
+    "from": "exam/:exam/results",
+    "to": "_show/examresults"
+  },
+  {
     "from": "prof/:prof/questions",
     "to": "_list/profdocs/profdocs",
     "query": {

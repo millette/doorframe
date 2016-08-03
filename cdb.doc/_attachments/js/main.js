@@ -1,6 +1,32 @@
 $(function () {
   var $question = $('textarea[name=question]')
 
+  if ($('.ajaxeduser').length) {
+      $.ajax({
+        url: '/login/org.couchdb.user:' + $('.ajaxeduser').data('user'),
+        accepts: 'application/json',
+        dataType: 'json',
+        contentType: 'application/json'
+      })
+        .done(function (userDoc) {
+          var exam = $('.ajaxeduser').data('exam')
+          var k = Object.keys(userDoc.answers[exam])
+          var r
+          var correctes =  0
+          for (r = 0; r < k.length; ++r) {
+            if (userDoc.answers[exam][k[r]].correct || userDoc.answers[exam][k[r]].corrent) { ++correctes }
+          }
+          var str = '<p>Nombre de questions: ' + k.length + '</p>'
+          str += '<p>Réponses correctes: ' + correctes + '</p>'
+          str += '<pre>' + JSON.stringify(userDoc.answers[exam], null, ' ') + '</pre>'
+          $('.ajaxeduser').html(str)
+        })
+      .fail(function (resp) {
+        console.log('FAIL59:', resp)
+        // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+      })
+  }
+
   if ($('.quiz').length) {
     $.ajax({
       url: '/session',
@@ -53,7 +79,7 @@ $(function () {
               })
                 .done(function (resp) {
                   // console.log('VERIFY:', resp.rows.length)
-                  userDoc.answers[answer.exam][answer.id].corrent = resp.rows.length === 1
+                  userDoc.answers[answer.exam][answer.id].correct = resp.rows.length === 1
 
                   $.ajax({
                     url: '/login/org.couchdb.user:' + username,

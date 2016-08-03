@@ -6,7 +6,11 @@ function (head, req) {
   send(templates.htmlbegin())
   send('<h1><a href="/">Accueil</a></h1>')
   send('<h2>Liste des questions de l\'examen <span class="label">' + req.requested_path[1] + '</span></h2>')
-  send('<p><a href="/' + req.requested_path.join('/') + '/expanded">Voir l\'examen</a></p>')
+  send('<p><a href="/' + req.requested_path.join('/') + '/expanded">Voir l\'examen</a>')
+  if (req.userCtx.name && req.userCtx.roles.indexOf('prof') === -1) {
+    send(' ou encore <a href="/' + req.requested_path.join('/') + '/results">consulter mes résultats</a>.</p>')
+  }
+  send('</p>')
   send('<ul>')
   while((row = getRow())) {
     s = '<li><a href="/doc/' + row.id + '">' + row.id + '</a></li>'

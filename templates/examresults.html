@@ -1,0 +1,8 @@
+<%= templates.htmlbegin() %>
+<h1><a href="/">Accueil</a></h1>
+<h2>exam</h2>
+<p><%- data.req.query.exam %></p>
+
+<h2>Résultats</h2>
+<div class="ajaxeduser" data-user="<%- data.user.name %>" data-exam="<%- data.req.query.exam %>"></div>
+<%= templates.htmlend() %>
