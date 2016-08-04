@@ -32,7 +32,6 @@ $(function () {
         .fail(function (resp) {
           console.log('FAIL83:', resp)
         })
-
     })
   }
 
@@ -51,9 +50,10 @@ $(function () {
           for (r = 0; r < k.length; ++r) {
             if (userDoc.answers[exam][k[r]].correct || userDoc.answers[exam][k[r]].corrent) { ++correctes }
           }
-          var str = '<p>Nombre de questions de l\'examen: ' + userDoc.answers[exam].n_questions + '</p>'
-          str += '<p>Nombre de questions auxquelles on a répondu: ' + k.length + '</p>'
-          str += '<p>Réponses correctes: ' + correctes + '</p>'
+          var str = '<p>Score: <span class="stat">' + Math.round(100 * correctes / userDoc.answers[exam].n_questions) + '%</span></p>'
+          str += '<p>Nombre de questions de l\'examen: <span class="stat">' + userDoc.answers[exam].n_questions + '</span></p>'
+          str += '<p>Nombre de questions auxquelles on a répondu: <span class="stat">' + k.length + '</span></p>'
+          str += '<p>Réponses correctes: <span class="stat">' + correctes + '</span></p>'
           str += '<pre>' + JSON.stringify(userDoc.answers[exam], null, ' ') + '</pre>'
           $('.ajaxeduser').html(str)
         })
