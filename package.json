@@ -17,6 +17,6 @@
     "standard": "^7.1.2"
   },
   "standard": {
-    "globals": [ "start", "send", "getRow" ]
+    "globals": [ "start", "send", "getRow", "emit" ]
   }
 }
