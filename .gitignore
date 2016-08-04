@@ -3,3 +3,4 @@ old-mathjax
 node_modules
 cdb.doc/views/lib/templates.js
 cdb.doc/_attachments/js/lodash.custom.js
+npm-debug.log
