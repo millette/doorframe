@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (doc) {
     if (doc.prof) { emit([doc.prof, 'last-editor']) }
     doc.editors.forEach(function (ed) {

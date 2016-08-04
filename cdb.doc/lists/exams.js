@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (head, req) {
     var row
     var s

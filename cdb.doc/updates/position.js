@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (doc, req) {
     var i
     if (!doc) {

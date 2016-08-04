@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (doc, req) {
     const templates = require('views/lib/templates')
 

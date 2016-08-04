@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (doc, req) {
     const templates = require('views/lib/templates')
     if (req.userCtx.name && req.userCtx.roles.indexOf('prof') === -1) {

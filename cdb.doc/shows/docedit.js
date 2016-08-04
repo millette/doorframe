@@ -1,4 +1,5 @@
 (function () {
+  'use strict'
   return function (doc, req) {
     const canEdit = req.userCtx.roles.indexOf('prof') !== -1
     const templates = require('views/lib/templates')
