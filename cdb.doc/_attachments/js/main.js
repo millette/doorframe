@@ -1,3 +1,4 @@
+/* global $, sortable, MathJax, _ */
 $(function () {
   var $question = $('textarea[name=question]')
 
@@ -36,31 +37,31 @@ $(function () {
   }
 
   if ($('.ajaxeduser').length) {
-      $.ajax({
-        url: '/login/org.couchdb.user:' + $('.ajaxeduser').data('user'),
-        accepts: 'application/json',
-        dataType: 'json',
-        contentType: 'application/json'
+    $.ajax({
+      url: '/login/org.couchdb.user:' + $('.ajaxeduser').data('user'),
+      accepts: 'application/json',
+      dataType: 'json',
+      contentType: 'application/json'
+    })
+      .done(function (userDoc) {
+        var exam = $('.ajaxeduser').data('exam')
+        var k = Object.keys(userDoc.answers[exam])
+        var r
+        var correctes = 0
+        for (r = 0; r < k.length; ++r) {
+          if (userDoc.answers[exam][k[r]].correct || userDoc.answers[exam][k[r]].corrent) { ++correctes }
+        }
+        var str = '<p>Score: <span class="stat">' + Math.round(100 * correctes / userDoc.answers[exam].n_questions) + '%</span></p>'
+        str += '<p>Nombre de questions de l\'examen: <span class="stat">' + userDoc.answers[exam].n_questions + '</span></p>'
+        str += '<p>Nombre de questions auxquelles on a répondu: <span class="stat">' + k.length + '</span></p>'
+        str += '<p>Réponses correctes: <span class="stat">' + correctes + '</span></p>'
+        str += '<pre>' + JSON.stringify(userDoc.answers[exam], null, ' ') + '</pre>'
+        $('.ajaxeduser').html(str)
       })
-        .done(function (userDoc) {
-          var exam = $('.ajaxeduser').data('exam')
-          var k = Object.keys(userDoc.answers[exam])
-          var r
-          var correctes =  0
-          for (r = 0; r < k.length; ++r) {
-            if (userDoc.answers[exam][k[r]].correct || userDoc.answers[exam][k[r]].corrent) { ++correctes }
-          }
-          var str = '<p>Score: <span class="stat">' + Math.round(100 * correctes / userDoc.answers[exam].n_questions) + '%</span></p>'
-          str += '<p>Nombre de questions de l\'examen: <span class="stat">' + userDoc.answers[exam].n_questions + '</span></p>'
-          str += '<p>Nombre de questions auxquelles on a répondu: <span class="stat">' + k.length + '</span></p>'
-          str += '<p>Réponses correctes: <span class="stat">' + correctes + '</span></p>'
-          str += '<pre>' + JSON.stringify(userDoc.answers[exam], null, ' ') + '</pre>'
-          $('.ajaxeduser').html(str)
-        })
-      .fail(function (resp) {
-        console.log('FAIL59:', resp)
-        // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
-      })
+    .fail(function (resp) {
+      console.log('FAIL59:', resp)
+      // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
+    })
   }
 
   $('.quiz').submit(function (ev) {
@@ -79,7 +80,7 @@ $(function () {
     })
       .done(function (userDoc) {
         var answer = {}
-        $form.serializeArray().forEach(function (p) { answer[p.name] = p.value } )
+        $form.serializeArray().forEach(function (p) { answer[p.name] = p.value })
         console.log('RESPUSER:', userDoc)
         if (!userDoc.answers) {
           userDoc.answers = { }
@@ -138,8 +139,6 @@ $(function () {
             console.log('FAIL33:', resp)
             // $form.after('<pre>' + JSON.stringify(resp, null, ' ') + '</pre>')
           })
-
-
       })
       .fail(function (resp) {
         console.log('FAIL9:', resp)
