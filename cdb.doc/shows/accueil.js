@@ -1,5 +1,7 @@
-function (doc, req) {
-  const templates = require('views/lib/templates')
+(function () {
+  return function (doc, req) {
+    const templates = require('views/lib/templates')
 
-  return { body: templates.accueil({ user: req.userCtx }) }
-}
+    return { body: templates.accueil({ user: req.userCtx }) }
+  }
+}())
