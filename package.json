@@ -1,20 +1,25 @@
 {
   "name": "zi",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "lint": "standard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["doorframe"],
+  "license": "AGPL-3.0",
+  "repository": "millette/doorframe",
+  "author": {
+    "name": "Robin Millette",
+    "email": "robin@millette.info",
+    "url": "http://robin.millette.info"
+  },
   "devDependencies": {
     "bower": "^1.7.9",
     "couchdb-push": "^2.3.1",
     "lodash-cli": "^4.14.1",
-    "standard": "^7.1.2"
+    "standard": "^8.5.0"
   },
   "standard": {
     "globals": [ "start", "send", "getRow", "emit" ]
